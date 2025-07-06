@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace naimsolong\DataExtractor\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class DataExtractorCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'data-extractor';
 
     public $description = 'My command';
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace naimsolong\DataExtractor;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use naimsolong\DataExtractor\Commands\DataExtractorCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class DataExtractorServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('data-extractor')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_migration_table_name_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_data_extractor_table')
+            ->hasCommand(DataExtractorCommand::class);
     }
 }
