@@ -3,8 +3,8 @@
 namespace naimsolong\DataExtractor\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use naimsolong\DataExtractor\DataExtractorServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

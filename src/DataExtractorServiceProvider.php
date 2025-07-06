@@ -2,9 +2,9 @@
 
 namespace naimsolong\DataExtractor;
 
+use naimsolong\DataExtractor\Commands\DataExtractorCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use naimsolong\DataExtractor\Commands\DataExtractorCommand;
 
 class DataExtractorServiceProvider extends PackageServiceProvider
 {
