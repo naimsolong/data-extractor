@@ -1,9 +1,9 @@
 <?php
 
-namespace naimsolong\DataExtractor\Tests;
+namespace NaimSolong\DataExtractor\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use naimsolong\DataExtractor\DataExtractorServiceProvider;
+use NaimSolong\DataExtractor\DataExtractorServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'naimsolong\\DataExtractor\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'NaimSolong\\DataExtractor\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace naimsolong\DataExtractor\Facades;
+namespace NaimSolong\DataExtractor\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \naimsolong\DataExtractor\DataExtractor
+ * @see \NaimSolong\DataExtractor\DataExtractor
  */
 class DataExtractor extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \naimsolong\DataExtractor\DataExtractor::class;
+        return \NaimSolong\DataExtractor\DataExtractor::class;
     }
 }

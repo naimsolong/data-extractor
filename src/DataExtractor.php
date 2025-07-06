@@ -1,5 +1,5 @@
 <?php
 
-namespace naimsolong\DataExtractor;
+namespace NaimSolong\DataExtractor;
 
 class DataExtractor {}

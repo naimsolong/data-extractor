@@ -1,8 +1,8 @@
 <?php
 
-namespace naimsolong\DataExtractor;
+namespace NaimSolong\DataExtractor;
 
-use naimsolong\DataExtractor\Commands\DataExtractorCommand;
+use NaimSolong\DataExtractor\Commands\DataExtractorCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

@@ -52,7 +52,7 @@ php artisan vendor:publish --tag="data-extractor-views"
 ## Usage
 
 ```php
-$dataExtractor = new naimsolong\DataExtractor();
+$dataExtractor = new NaimSolong\DataExtractor();
 echo $dataExtractor->echoPhrase('Hello, naimsolong!');
 ```
 

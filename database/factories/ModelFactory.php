@@ -1,6 +1,6 @@
 <?php
 
-namespace naimsolong\DataExtractor\Database\Factories;
+namespace NaimSolong\DataExtractor\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

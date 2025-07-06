@@ -1,6 +1,6 @@
 <?php
 
-namespace naimsolong\DataExtractor\Commands;
+namespace NaimSolong\DataExtractor\Commands;
 
 use Illuminate\Console\Command;
 

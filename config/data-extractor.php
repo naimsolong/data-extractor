@@ -1,6 +1,6 @@
 <?php
 
-// config for naimsolong/DataExtractor
+// config for NaimSolong/DataExtractor
 return [
 
 ];

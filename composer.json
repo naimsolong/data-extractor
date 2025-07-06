@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "naimsolong\\DataExtractor\\": "src/",
-            "naimsolong\\DataExtractor\\Database\\Factories\\": "database/factories/"
+            "NaimSolong\\DataExtractor\\": "src/",
+            "NaimSolong\\DataExtractor\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "naimsolong\\DataExtractor\\Tests\\": "tests/",
+            "NaimSolong\\DataExtractor\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "naimsolong\\DataExtractor\\DataExtractorServiceProvider"
+                "NaimSolong\\DataExtractor\\DataExtractorServiceProvider"
             ],
             "aliases": {
-                "DataExtractor": "naimsolong\\DataExtractor\\Facades\\DataExtractor"
+                "DataExtractor": "NaimSolong\\DataExtractor\\Facades\\DataExtractor"
             }
         }
     },
