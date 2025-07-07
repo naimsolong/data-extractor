@@ -18,7 +18,7 @@ return [
                 'file_path' => 'data-extractor',
                 'disk' => 'local',
             ],
-        ]
+        ],
     ],
 
     'source' => [
@@ -28,6 +28,6 @@ return [
             'relationships' => [
                 'mainProfile',
             ],
-        ]
-    ]
+        ],
+    ],
 ];

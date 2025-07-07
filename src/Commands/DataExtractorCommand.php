@@ -22,8 +22,9 @@ class DataExtractorCommand extends Command
 
     public function handle(): int
     {
-        if (!config('data-extractor.allow_production') && app()->environment('production')) {
+        if (! config('data-extractor.allow_production') && app()->environment('production')) {
             $this->error('Data extraction is not allowed in production environment.');
+
             return self::FAILURE;
         }
 
@@ -34,14 +35,15 @@ class DataExtractorCommand extends Command
         $selectedInstructions = $this->promptInstructions();
 
         $id = $this->promptModelId($selectedInstructions);
-        
+
         if ($id <= 0) {
             return self::FAILURE;
         }
 
         $selectedSource = $selectedInstructions['source'] ?? null;
-        if (!$selectedSource) {
+        if (! $selectedSource) {
             $this->error('No source specified in the selected instruction.');
+
             return self::FAILURE;
         }
         $source = config("data-extractor.source.$selectedSource", []);
@@ -51,28 +53,28 @@ class DataExtractorCommand extends Command
             ->with($source['relationships'] ?? [])
             ->where('id', $id);
 
-
-        if (!$query->exists()) {
+        if (! $query->exists()) {
             $this->error("No record found with ID {$id} in the {$source['model']} model.");
+
             return self::FAILURE;
         }
 
         $data = $query->first();
-        
+
         $insertSql = $this->generateInsertSql($data);
 
         $this->line("<info>Generated SQL Insert Statement:</info>\n$insertSql");
 
         // Get loaded relationships
         $loadedRelations = $data->getRelations();
-        
+
         // Debug: Show loaded relations context
-        $this->line("<comment>Loaded Relations:</comment>");
+        $this->line('<comment>Loaded Relations:</comment>');
         foreach ($loadedRelations as $relationName => $relationData) {
-            $this->line("  - {$relationName}: " . (is_countable($relationData) ? count($relationData) . ' records' : 'single record'));
+            $this->line("  - {$relationName}: ".(is_countable($relationData) ? count($relationData).' records' : 'single record'));
 
             $this->line("<comment>Generated SQL for relation '{$relationName}':</comment>");
-            if(is_countable($relationData)){
+            if (is_countable($relationData)) {
                 foreach ($relationData as $relation) {
                     $insertSql = $this->generateInsertSql($relation);
                     $this->line("\n$insertSql");
@@ -103,22 +105,22 @@ class DataExtractorCommand extends Command
                 return false;
             }
 
-            if (!in_array($instruction['export']['format'], Export::FORMATS)) {
-                $this->error('Invalid export format in instruction: ' . $instruction['name']);
+            if (! in_array($instruction['export']['format'], Export::FORMATS)) {
+                $this->error('Invalid export format in instruction: '.$instruction['name']);
 
                 return false;
             }
 
-            if (!isset($instruction['source']) || !is_string($instruction['source']) || !in_array($instruction['source'], $sourceConnections)) {
-                $this->error('Invalid source specified in instruction: ' . $instruction['name']);
+            if (! isset($instruction['source']) || ! is_string($instruction['source']) || ! in_array($instruction['source'], $sourceConnections)) {
+                $this->error('Invalid source specified in instruction: '.$instruction['name']);
 
                 return false;
             }
 
             $selectedSource = config("data-extractor.source.{$instruction['source']}", []);
 
-            if (!isset($selectedSource['model'])) {
-                $this->error('Invalid model configuration in source: ' . $instruction['source']);
+            if (! isset($selectedSource['model'])) {
+                $this->error('Invalid model configuration in source: '.$instruction['source']);
 
                 return false;
             }
@@ -141,7 +143,7 @@ class DataExtractorCommand extends Command
         );
 
         $instructionNames = array_column($this->instructions, 'name');
-        
+
         $selectedKey = array_keys($this->choice(
             'Select an instruction to execute',
             $instructionNames,
@@ -157,7 +159,7 @@ class DataExtractorCommand extends Command
     {
         $source = $instruction['source'] ?? null;
 
-        if (!$source || !is_string($source)) {
+        if (! $source || ! is_string($source)) {
             $this->error('Invalid source specified in the instruction.');
 
             return 0;
@@ -165,7 +167,7 @@ class DataExtractorCommand extends Command
 
         $modelClass = config("data-extractor.source.$source.model");
 
-        if (!$modelClass || !class_exists($modelClass)) {
+        if (! $modelClass || ! class_exists($modelClass)) {
             $this->error('Invalid model class specified in the instruction source.');
 
             return 0;
@@ -184,18 +186,18 @@ class DataExtractorCommand extends Command
         $dataArray = $data->toArray();
         foreach ($dataArray as $key => $value) {
             if (is_array($value)) {
-                $insertString[] = "`$key` = '" . json_encode($value, JSON_UNESCAPED_UNICODE) . "'";
+                $insertString[] = "`$key` = '".json_encode($value, JSON_UNESCAPED_UNICODE)."'";
             } elseif (is_null($value)) {
                 $insertString[] = "`$key` = NULL";
             } elseif (is_numeric($value)) {
                 $insertString[] = "`$key` = $value";
             } elseif (is_bool($value)) {
-                $insertString[] = "`$key` = " . ($value ? '1' : '0');
+                $insertString[] = "`$key` = ".($value ? '1' : '0');
             } else {
-                $insertString[] = "`$key` = '" . addslashes($value) . "'";
+                $insertString[] = "`$key` = '".addslashes($value)."'";
             }
         }
 
-        return "INSERT INTO `{$data->getTable()}` VALUE (" . implode(', ', $insertString) . ');';
+        return "INSERT INTO `{$data->getTable()}` VALUE (".implode(', ', $insertString).');';
     }
 }
