@@ -1,9 +1,9 @@
 # A data extractor based on models and it's relationship
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/naimsolong/data-extractor.svg?style=flat-square)](https://packagist.org/packages/naimsolong/data-extractor)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/naimsolong/data-extractor/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/naimsolong/data-extractor/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/naimsolong/data-extractor/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/naimsolong/data-extractor/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/naimsolong/data-extractor.svg?style=flat-square)](https://packagist.org/packages/naimsolong/data-extractor)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/naimsolong/laravel-data-extractor.svg?style=flat-square)](https://packagist.org/packages/naimsolong/laravel-data-extractor)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/naimsolong/laravel-data-extractor/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/naimsolong/laravel-data-extractor/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/naimsolong/laravel-data-extractor/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/naimsolong/laravel-data-extractor/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/naimsolong/laravel-data-extractor.svg?style=flat-square)](https://packagist.org/packages/naimsolong/laravel-data-extractor)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
@@ -20,7 +20,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require naimsolong/data-extractor
+composer require naimsolong/laravel-data-extractor
 ```
 
 You can publish and run the migrations with:

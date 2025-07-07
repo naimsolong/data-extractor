@@ -1,12 +1,12 @@
 {
-    "name": "naimsolong/data-extractor",
+    "name": "naimsolong/laravel-data-extractor",
     "description": "A data extractor based on models and it's relationship",
     "keywords": [
         "Amirul Naim",
         "laravel",
         "data-extractor"
     ],
-    "homepage": "https://github.com/naimsolong/data-extractor",
+    "homepage": "https://github.com/naimsolong/laravel-data-extractor",
     "license": "MIT",
     "authors": [
         {
