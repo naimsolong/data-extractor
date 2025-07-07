@@ -18,7 +18,6 @@ class DataExtractorServiceProvider extends PackageServiceProvider
         $package
             ->name('data-extractor')
             ->hasConfigFile()
-            ->hasViews()
             ->hasMigration('create_data_extractor_table')
             ->hasCommand(DataExtractorCommand::class);
     }
