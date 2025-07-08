@@ -2,7 +2,7 @@
 
 namespace NaimSolong\DataExtractor;
 
-use NaimSolong\DataExtractor\Commands\DataExtractorCommand;
+use NaimSolong\DataExtractor\Commands\DataExtractCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,7 +18,6 @@ class DataExtractorServiceProvider extends PackageServiceProvider
         $package
             ->name('data-extractor')
             ->hasConfigFile()
-            ->hasMigration('create_data_extractor_table')
-            ->hasCommand(DataExtractorCommand::class);
+            ->hasCommand(DataExtractCommand::class);
     }
 }

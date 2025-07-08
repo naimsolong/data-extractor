@@ -2,4 +2,4 @@
 
 namespace NaimSolong\DataExtractor;
 
-class DataExtractor {}
+class Extract {}

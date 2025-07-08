@@ -5,7 +5,7 @@ namespace NaimSolong\DataExtractor\Commands;
 use Illuminate\Console\Command;
 use NaimSolong\DataExtractor\Dto\Export;
 
-class DataExtractorCommand extends Command
+class DataExtractCommand extends Command
 {
     public $signature = 'data:extract';
 
