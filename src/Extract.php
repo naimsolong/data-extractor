@@ -2,7 +2,6 @@
 
 namespace NaimSolong\DataExtractor;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use NaimSolong\DataExtractor\Builder\ExtractBuilder;
 
 class Extract

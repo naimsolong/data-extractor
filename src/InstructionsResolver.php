@@ -53,7 +53,7 @@ class InstructionsResolver
                 return $instruction->name === $value;
             });
 
-            if(count($filteredInstructions) > 0) {
+            if (count($filteredInstructions) > 0) {
                 $this->instruction = $filteredInstructions[0];
 
                 return $this;
