@@ -2,25 +2,34 @@
 
 namespace NaimSolong\DataExtractor;
 
+use Exception;
 use NaimSolong\DataExtractor\Builder\ExtractBuilder;
 
 class Extract
 {
     protected int $queryId;
 
-    protected InstructionsResolver $instructions;
+    protected ?InstructionsResolver $instruction = null;
+
+    protected ?SourcesResolver $source = null;
 
     protected ExtractBuilder $builder;
 
     public function __construct()
     {
-        $this->builder = new ExtractBuilder;
-        $this->instructions = new InstructionsResolver;
+        $this->builder = new ExtractBuilder;;
     }
 
     public function instruction(int|string $value): self
     {
-        $this->instructions->set($value);
+        $this->instruction = (new InstructionsResolver)->set($value);
+
+        return $this;
+    }
+
+    public function source(string $source): self
+    {
+        $this->source = (new SourcesResolver)->set($source);
 
         return $this;
     }
@@ -34,7 +43,11 @@ class Extract
 
     public function query(): mixed
     {
-        $source = $this->instructions->source()->toArray();
+        if (is_null($this->instruction) && is_null($this->source)) {
+            throw new Exception('Instruction or source are not set.');
+        }
+
+        $source = $this->source?->get()->toArray() ?? $this->instruction?->source()->toArray();
 
         $query = app($source['model'])
             ->setConnection($source['connection'])
