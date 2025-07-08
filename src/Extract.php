@@ -17,7 +17,7 @@ class Extract
 
     public function __construct()
     {
-        $this->builder = new ExtractBuilder;;
+        $this->builder = new ExtractBuilder;
     }
 
     public function instruction(int|string $value): self
