@@ -11,13 +11,9 @@ return [
         [
             'name' => 'Default',
             'description' => 'Extra all user data',
+            'format' => 'sql',
             'source' => 'default',
-            'export' => [
-                'format' => 'sql',
-                'file_name' => 'data-extractor',
-                'file_path' => 'data-extractor',
-                'disk' => 'local',
-            ],
+            'export' => 'default',
         ],
     ],
 
@@ -30,4 +26,17 @@ return [
             ],
         ],
     ],
+
+    'export' => [
+        'default' => [
+            'file_name' => 'data-extractor',
+            'file_path' => 'data-extractor',
+            'disk' => 'local',
+        ],
+    ],
+
+    'sanitize' => [
+        'password',
+        'remember_token',
+    ]
 ];
