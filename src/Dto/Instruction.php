@@ -2,7 +2,7 @@
 
 namespace NaimSolong\DataExtractor\Dto;
 
-use ExtractBuilder;
+use NaimSolong\DataExtractor\Builder\ExtractBuilder;
 
 readonly class Instruction
 {

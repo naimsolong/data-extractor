@@ -33,24 +33,22 @@ class Extract
         return $this;
     }
 
-    public function query(string $format): string
+    public function query(): mixed
     {
-        $this->builder->createBuilder($format);
-
         $source = $this->instructions->source()->toArray();
 
         $query = app($source['model'])
             ->setConnection($source['connection'])
-            ->with($source['relationships'] ?? [])
-            ->where('id', $this->queryId);
+            ->with($source['relationships'] ?? []);
 
-        if (! $query->exists()) {
-            throw new ModelNotFoundException("No record found with ID {$this->queryId} in the {$source['model']} model.");
-        }
+        return $query->findOrFail($this->queryId);
+    }
 
-        $data = $query->first();
+    public function extract(string $format): string
+    {
+        $this->builder->createBuilder($format);
 
-        ray($data);
+        $data = $this->query();
 
         return $this->builder
             ->setModel($data)
@@ -59,11 +57,11 @@ class Extract
 
     public function toCsv(): string
     {
-        return $this->query(ExtractBuilder::FORMAT_CSV);
+        return $this->extract(ExtractBuilder::FORMAT_CSV);
     }
 
     public function toSql(): string
     {
-        return $this->query(ExtractBuilder::FORMAT_SQL);
+        return $this->extract(ExtractBuilder::FORMAT_SQL);
     }
 }

@@ -49,11 +49,15 @@ class InstructionsResolver
         }
 
         if (is_string($value)) {
-            $this->instruction = array_filter($this->instructions, function ($instruction) use ($value) {
+            $filteredInstructions = array_filter($this->instructions, function ($instruction) use ($value) {
                 return $instruction->name === $value;
-            })[0];
+            });
 
-            return $this;
+            if(count($filteredInstructions) > 0) {
+                $this->instruction = $filteredInstructions[0];
+
+                return $this;
+            }
         }
 
         throw new InvalidArgumentException("Invalid instruction value: {$value}");
