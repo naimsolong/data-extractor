@@ -5,7 +5,7 @@
 use Illuminate\Foundation\Auth\User;
 
 return [
-    'allow_production' => env('DATA_EXTRACTOR_PRODUCTION', false),
+    'is_enabled' => env('DATA_EXTRACTOR_ENABLED', false),
 
     'instructions' => [
         [
