@@ -71,7 +71,7 @@ class ExtractBuilder
     public function build(): string
     {
         if (! isset($this->builder)) {
-            throw new RuntimeException('Builder not initialized. Call asCsv() or asSql() first.');
+            throw new RuntimeException('Builder not initialized. Call createBuilder(), asCsv() or asSql() first.');
         }
 
         if (! isset($this->model)) {
