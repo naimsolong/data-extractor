@@ -17,7 +17,7 @@ class Extract
 
     public function __construct()
     {
-        if(!config('data-extractor.is_enabled')) {
+        if (! config('data-extractor.is_enabled')) {
             throw new Exception('Data Extractor is not enabled. Please check your configuration.');
         }
 
