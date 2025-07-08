@@ -6,13 +6,11 @@ class SqlBuilder extends BaseBuilder
 {
     /**
      * Build the data as SQL INSERT statements.
-     *
-     * @return string
      */
     public function build(): string
     {
         $sql = '';
-        
+
         foreach ($this->data as $row) {
             $values = [];
             foreach ($this->columns as $column) {
@@ -21,7 +19,7 @@ class SqlBuilder extends BaseBuilder
                 if (is_array($value)) {
                     $values[] = "'".json_encode($value, JSON_UNESCAPED_UNICODE)."'";
                 } elseif (is_null($value)) {
-                    $values[] = "NULL";
+                    $values[] = 'NULL';
                 } elseif (is_numeric($value)) {
                     $values[] = $value;
                 } elseif (is_bool($value)) {
@@ -30,10 +28,10 @@ class SqlBuilder extends BaseBuilder
                     $values[] = "'".addslashes($value)."'";
                 }
             }
-            
-            $sql .= "INSERT INTO {$this->schemaName} (" . implode(', ', $this->columns) . ") VALUES (" . implode(', ', $values) . ");\n";
+
+            $sql .= "INSERT INTO {$this->schemaName} (".implode(', ', $this->columns).') VALUES ('.implode(', ', $values).");\n";
         }
-        
+
         return $sql;
     }
 }

@@ -6,29 +6,21 @@ abstract class BaseBuilder
 {
     /**
      * The name of the schema.
-     *
-     * @var string
      */
     protected string $schemaName;
 
     /**
      * The columns available on schema.
-     *
-     * @var array
      */
     protected array $columns;
 
     /**
      * The data to be processed.
-     *
-     * @var array
      */
     protected array $data;
 
     /**
      * Get the schema name.
-     *
-     * @return string
      */
     public function getSchemaName(): string
     {
@@ -37,9 +29,6 @@ abstract class BaseBuilder
 
     /**
      * Set the schema name.
-     *
-     * @param string $schemaName
-     * @return self
      */
     public function setSchemaName(string $schemaName): self
     {
@@ -50,8 +39,6 @@ abstract class BaseBuilder
 
     /**
      * Get the columns.
-     *
-     * @return array
      */
     public function getColumns(): array
     {
@@ -60,9 +47,6 @@ abstract class BaseBuilder
 
     /**
      * Set the columns.
-     *
-     * @param array $columns
-     * @return self
      */
     public function setColumns(array $columns): self
     {
@@ -73,8 +57,6 @@ abstract class BaseBuilder
 
     /**
      * Get the data.
-     *
-     * @return array
      */
     public function getData(): array
     {
@@ -83,14 +65,11 @@ abstract class BaseBuilder
 
     /**
      * Set the data.
-     *
-     * @param array $data
-     * @return self
      */
     public function setData(array $data): self
     {
         $this->data = $data;
-        
+
         return $this;
     }
 

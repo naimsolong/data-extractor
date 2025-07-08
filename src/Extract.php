@@ -5,11 +5,12 @@ namespace NaimSolong\DataExtractor;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use NaimSolong\DataExtractor\Builder\ExtractBuilder;
 
-class Extract {
+class Extract
+{
     protected int $queryId;
 
     protected InstructionsResolver $instructions;
-    
+
     protected ExtractBuilder $builder;
 
     public function __construct()
@@ -50,7 +51,7 @@ class Extract {
         $data = $query->first();
 
         ray($data);
-        
+
         return $this->builder
             ->setModel($data)
             ->build();

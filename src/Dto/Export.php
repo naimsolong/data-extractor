@@ -2,8 +2,6 @@
 
 namespace NaimSolong\DataExtractor\Dto;
 
-use InvalidArgumentException;
-
 readonly class Export
 {
     public function __construct(

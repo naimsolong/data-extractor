@@ -8,6 +8,7 @@ use RuntimeException;
 class ExtractBuilder
 {
     public const FORMAT_CSV = 'csv';
+
     public const FORMAT_SQL = 'sql';
 
     public const DEFAULT_FORMAT = self::FORMAT_SQL;
@@ -19,8 +20,6 @@ class ExtractBuilder
 
     /**
      * The model instance.
-     *
-     * @var mixed
      */
     protected mixed $model;
 
@@ -28,13 +27,13 @@ class ExtractBuilder
 
     public function createBuilder(string $type): self
     {
-        if (!in_array($type, self::FORMATS, true)) {
+        if (! in_array($type, self::FORMATS, true)) {
             throw new InvalidArgumentException("Invalid builder type: {$type}");
         }
 
         $this->builder = match ($type) {
-            self::FORMAT_CSV => new CsvBuilder(),
-            self::FORMAT_SQL => new SqlBuilder(),
+            self::FORMAT_CSV => new CsvBuilder,
+            self::FORMAT_SQL => new SqlBuilder,
             default => throw new InvalidArgumentException("Unsupported builder type: {$type}"),
         };
 
@@ -53,8 +52,6 @@ class ExtractBuilder
 
     /**
      * Get the model instance.
-     *
-     * @return mixed
      */
     public function getModel(): mixed
     {
@@ -63,9 +60,6 @@ class ExtractBuilder
 
     /**
      * Set the model instance.
-     *
-     * @param mixed $model
-     * @return self
      */
     public function setModel(mixed $model): self
     {
@@ -76,11 +70,11 @@ class ExtractBuilder
 
     public function build(): string
     {
-        if (!isset($this->builder)) {
+        if (! isset($this->builder)) {
             throw new RuntimeException('Builder not initialized. Call asCsv() or asSql() first.');
         }
 
-        if (!isset($this->model)) {
+        if (! isset($this->model)) {
             throw new RuntimeException('Model not set. Use setModel() to set the model before building.');
         }
 

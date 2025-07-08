@@ -38,5 +38,5 @@ return [
     'sanitize' => [
         'password',
         'remember_token',
-    ]
+    ],
 ];

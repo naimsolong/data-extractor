@@ -7,8 +7,8 @@ use NaimSolong\DataExtractor\Dto\Export;
 use NaimSolong\DataExtractor\Dto\Instruction;
 use NaimSolong\DataExtractor\Dto\Source;
 
-class InstructionsResolver {
-
+class InstructionsResolver
+{
     protected array $instructions = [];
 
     protected Instruction $instruction;
@@ -47,15 +47,15 @@ class InstructionsResolver {
 
             return $this;
         }
-        
+
         if (is_string($value)) {
-            $this->instruction = array_filter($this->instructions, function($instruction) use ($value) {
+            $this->instruction = array_filter($this->instructions, function ($instruction) use ($value) {
                 return $instruction->name === $value;
             })[0];
 
             return $this;
         }
-        
+
         throw new InvalidArgumentException("Invalid instruction value: {$value}");
     }
 
