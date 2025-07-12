@@ -80,12 +80,12 @@ class ExtractBuilder
         }
 
         $table = $this->model->getTable();
-        
+
         $columns = app(DatabaseManager::class)
             ->connection($this->model->getConnectionName())
             ->getSchemaBuilder()
             ->getColumnListing($table);
-        
+
         $this->builder
             ->setSchemaName($table)
             ->setColumns($columns)

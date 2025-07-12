@@ -14,8 +14,9 @@ class SqlBuilder extends BaseBuilder
         $values = [];
 
         foreach ($this->columns as $column) {
-            if(!array_key_exists($column, $this->data)) {
+            if (! array_key_exists($column, $this->data)) {
                 $values[] = "'*****'";
+
                 continue;
             }
 
