@@ -4,7 +4,7 @@ namespace NaimSolong\DataExtractor\Dto;
 
 use NaimSolong\DataExtractor\Builder\ExtractBuilder;
 
-readonly class Instruction
+readonly class Option
 {
     public function __construct(
         public string $name,

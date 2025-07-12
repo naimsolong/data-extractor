@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User;
 return [
     'is_enabled' => env('DATA_EXTRACTOR_ENABLED', false),
 
-    'instructions' => [
+    'options' => [
         [
             'name' => 'Default',
             'description' => 'Extra all user data',

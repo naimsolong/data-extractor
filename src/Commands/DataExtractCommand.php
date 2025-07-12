@@ -9,13 +9,13 @@ class DataExtractCommand extends Command
 {
     public $signature = 'data:extract';
 
-    public $description = 'Extract data based on predefined instructions';
+    public $description = 'Extract data based on predefined options';
 
-    public array $instructions = [];
+    public array $options = [];
 
     public function __construct()
     {
-        $this->instructions = config('data-extractor.instructions', []);
+        $this->options = config('data-extractor.options', []);
 
         parent::__construct();
     }
@@ -28,21 +28,21 @@ class DataExtractCommand extends Command
             return self::FAILURE;
         }
 
-        if ($this->validateInstructions() === false) {
+        if ($this->validateOptions() === false) {
             return self::FAILURE;
         }
 
-        $selectedInstructions = $this->promptInstructions();
+        $selectedOptions = $this->promptOptions();
 
-        $id = $this->promptModelId($selectedInstructions);
+        $id = $this->promptModelId($selectedOptions);
 
         if ($id <= 0) {
             return self::FAILURE;
         }
 
-        $selectedSource = $selectedInstructions['source'] ?? null;
+        $selectedSource = $selectedOptions['source'] ?? null;
         if (! $selectedSource) {
-            $this->error('No source specified in the selected instruction.');
+            $this->error('No source specified in the selected option.');
 
             return self::FAILURE;
         }
@@ -88,39 +88,39 @@ class DataExtractCommand extends Command
         return self::SUCCESS;
     }
 
-    protected function validateInstructions(): bool
+    protected function validateOptions(): bool
     {
-        if (empty($this->instructions)) {
-            $this->error('No instructions found in the configuration.');
+        if (empty($this->options)) {
+            $this->error('No options found in the configuration.');
 
             return false;
         }
 
         $sourceConnections = array_keys(config('data-extractor.source'));
 
-        foreach ($this->instructions as $instruction) {
-            if (empty($instruction['name']) || empty($instruction['source']) || empty($instruction['export'])) {
-                $this->error('Invalid instruction format. Each instruction must have a name, source, and export configuration.');
+        foreach ($this->options as $option) {
+            if (empty($option['name']) || empty($option['source']) || empty($option['export'])) {
+                $this->error('Invalid option format. Each option must have a name, source, and export configuration.');
 
                 return false;
             }
 
-            if (! in_array($instruction['export']['format'], Export::FORMATS)) {
-                $this->error('Invalid export format in instruction: '.$instruction['name']);
+            if (! in_array($option['export']['format'], Export::FORMATS)) {
+                $this->error('Invalid export format in option: '.$option['name']);
 
                 return false;
             }
 
-            if (! isset($instruction['source']) || ! is_string($instruction['source']) || ! in_array($instruction['source'], $sourceConnections)) {
-                $this->error('Invalid source specified in instruction: '.$instruction['name']);
+            if (! isset($option['source']) || ! is_string($option['source']) || ! in_array($option['source'], $sourceConnections)) {
+                $this->error('Invalid source specified in option: '.$option['name']);
 
                 return false;
             }
 
-            $selectedSource = config("data-extractor.source.{$instruction['source']}", []);
+            $selectedSource = config("data-extractor.source.{$option['source']}", []);
 
             if (! isset($selectedSource['model'])) {
-                $this->error('Invalid model configuration in source: '.$instruction['source']);
+                $this->error('Invalid model configuration in source: '.$option['source']);
 
                 return false;
             }
@@ -129,38 +129,38 @@ class DataExtractCommand extends Command
         return true;
     }
 
-    protected function promptInstructions(): array
+    protected function promptOptions(): array
     {
         $this->table(
             ['Name', 'Description', 'Export Format'],
-            array_map(function ($instruction) {
+            array_map(function ($option) {
                 return [
-                    $instruction['name'],
-                    $instruction['description'] ?? 'N/A',
-                    $instruction['export']['format'],
+                    $option['name'],
+                    $option['description'] ?? 'N/A',
+                    $option['export']['format'],
                 ];
-            }, $this->instructions)
+            }, $this->options)
         );
 
-        $instructionNames = array_column($this->instructions, 'name');
+        $optionNames = array_column($this->options, 'name');
 
         $selectedKey = array_keys($this->choice(
-            'Select an instruction to execute',
-            $instructionNames,
+            'Select an option to execute',
+            $optionNames,
             null,
             null,
             true
         ));
 
-        return $this->instructions[$selectedKey[0]];
+        return $this->options[$selectedKey[0]];
     }
 
-    protected function promptModelId($instruction): int
+    protected function promptModelId($option): int
     {
-        $source = $instruction['source'] ?? null;
+        $source = $option['source'] ?? null;
 
         if (! $source || ! is_string($source)) {
-            $this->error('Invalid source specified in the instruction.');
+            $this->error('Invalid source specified in the option.');
 
             return 0;
         }
@@ -168,7 +168,7 @@ class DataExtractCommand extends Command
         $modelClass = config("data-extractor.source.$source.model");
 
         if (! $modelClass || ! class_exists($modelClass)) {
-            $this->error('Invalid model class specified in the instruction source.');
+            $this->error('Invalid model class specified in the option source.');
 
             return 0;
         }

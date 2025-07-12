@@ -9,7 +9,7 @@ class Extract
 {
     protected int $queryId;
 
-    protected ?InstructionsResolver $instruction = null;
+    protected ?OptionsResolver $option = null;
 
     protected ?SourcesResolver $source = null;
 
@@ -24,9 +24,9 @@ class Extract
         $this->builder = new ExtractBuilder;
     }
 
-    public function instruction(int|string $value): self
+    public function option(int|string $value): self
     {
-        $this->instruction = (new InstructionsResolver)->set($value);
+        $this->option = (new OptionsResolver)->set($value);
 
         return $this;
     }
@@ -47,11 +47,11 @@ class Extract
 
     public function query(): mixed
     {
-        if (is_null($this->instruction) && is_null($this->source)) {
-            throw new Exception('Instruction or source are not set.');
+        if (is_null($this->option) && is_null($this->source)) {
+            throw new Exception('Option or source are not set.');
         }
 
-        $source = $this->source?->get()->toArray() ?? $this->instruction?->source()->toArray();
+        $source = $this->source?->get()->toArray() ?? $this->option?->source()->toArray();
 
         $query = app($source['model'])
             ->setConnection($source['connection'])
