@@ -51,6 +51,7 @@ class Extract
             throw new Exception('Option or source are not set.');
         }
 
+        // DTO Class
         $source = $this->source?->get()->toArray() ?? $this->option?->source()->toArray();
 
         $query = app($source['model'])
@@ -58,6 +59,16 @@ class Extract
             ->with($source['relationships'] ?? []);
 
         return $query->findOrFail($this->queryId);
+    }
+
+    public function toCsv(): string
+    {
+        return $this->extract(ExtractBuilder::FORMAT_CSV);
+    }
+
+    public function toSql(): string
+    {
+        return $this->extract(ExtractBuilder::FORMAT_SQL);
     }
 
     public function extract(string $format): string
@@ -69,15 +80,5 @@ class Extract
         return $this->builder
             ->setModel($data)
             ->build();
-    }
-
-    public function toCsv(): string
-    {
-        return $this->extract(ExtractBuilder::FORMAT_CSV);
-    }
-
-    public function toSql(): string
-    {
-        return $this->extract(ExtractBuilder::FORMAT_SQL);
     }
 }
