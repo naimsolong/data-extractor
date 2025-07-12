@@ -2,6 +2,7 @@
 
 namespace NaimSolong\DataExtractor\Builder;
 
+use Illuminate\Database\DatabaseManager;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -78,9 +79,16 @@ class ExtractBuilder
             throw new RuntimeException('Model not set. Use setModel() to set the model before building.');
         }
 
+        $table = $this->model->getTable();
+        
+        $columns = app(DatabaseManager::class)
+            ->connection($this->model->getConnectionName())
+            ->getSchemaBuilder()
+            ->getColumnListing($table);
+        
         $this->builder
-            ->setSchemaName($this->model->getTable())
-            ->setColumns(array_keys($this->model->getAttributes()))
+            ->setSchemaName($table)
+            ->setColumns($columns)
             ->setData($this->model->toArray());
 
         return $this->builder->build();

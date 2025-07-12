@@ -15,15 +15,17 @@ class CsvBuilder extends BaseBuilder
         $csv .= implode(',', $this->columns)."\n";
 
         // Add data rows
-        foreach ($this->data as $row) {
-            $csvRow = [];
-            foreach ($this->columns as $column) {
-                $value = $row[$column] ?? '';
-                // Escape CSV values
-                $csvRow[] = '"'.str_replace('"', '""', $value).'"';
+        foreach ($this->columns as $column) {
+            if(!array_key_exists($column, $this->data)) {
+                $csvRow[] = "'*****'";
+                continue;
             }
-            $csv .= implode(',', $csvRow)."\n";
+
+            $value = $this->data[$column] ?? '';
+            // Escape CSV values
+            $csvRow[] = '"'.str_replace('"', '""', $value).'"';
         }
+        $csv .= implode(',', $csvRow)."\n";
 
         return $csv;
     }

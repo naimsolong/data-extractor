@@ -11,7 +11,14 @@ class SqlBuilder extends BaseBuilder
     {
         $sql = '';
 
+        $values = [];
+
         foreach ($this->columns as $column) {
+            if(!array_key_exists($column, $this->data)) {
+                $values[] = "'*****'";
+                continue;
+            }
+
             $value = $this->data[$column];
 
             if (is_array($value)) {

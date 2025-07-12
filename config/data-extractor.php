@@ -34,9 +34,4 @@ return [
             'disk' => 'local',
         ],
     ],
-
-    'sanitize' => [
-        'password',
-        'remember_token',
-    ],
 ];
