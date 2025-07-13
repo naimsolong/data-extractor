@@ -2,6 +2,9 @@
 
 namespace NaimSolong\DataExtractor\Builder;
 
+use Carbon\Carbon;
+use DateTime;
+
 class SqlBuilder extends BaseBuilder
 {
     /**
@@ -11,12 +14,13 @@ class SqlBuilder extends BaseBuilder
     {
         $sql = '';
 
+        $rowValues = [];
         $values = [];
 
         foreach ($this->columns as $column) {
             if (! array_key_exists($column, $this->data)) {
                 $values[] = "'*****'";
-
+                
                 continue;
             }
 
@@ -30,12 +34,22 @@ class SqlBuilder extends BaseBuilder
                 $values[] = $value;
             } elseif (is_bool($value)) {
                 $values[] = ($value ? "'1'" : "'0'");
+            } elseif ($value instanceof DateTime) {
+                $values[] = "'".$value->format('Y-m-d')."'";
             } else {
                 $values[] = "'".addslashes($value)."'";
             }
         }
 
-        $sql .= "INSERT INTO {$this->schemaName} (".implode(', ', $this->columns).') VALUES ('.implode(', ', $values).");\n";
+        $rowValues[] = $values;
+        $values = [];
+
+        $arrayValues = [];
+        foreach($rowValues as $row) {
+            $arrayValues[] = "(".implode(', ', $row).")";
+        }
+
+        $sql .= "INSERT INTO {$this->schemaName} (".implode(', ', $this->columns)."') VALUES ".implode(', ', $arrayValues).";";
 
         return $sql;
     }
