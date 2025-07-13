@@ -2,7 +2,9 @@
 
 namespace NaimSolong\DataExtractor\Builder;
 
+use Exception;
 use Illuminate\Database\DatabaseManager;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use RuntimeException;
@@ -65,6 +67,10 @@ class ExtractBuilder
      */
     public function setModel(mixed $model): self
     {
+        if (! is_subclass_of($model, Model::class)) {
+            throw new Exception('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
+        }
+
         $this->model = $model;
 
         return $this;
