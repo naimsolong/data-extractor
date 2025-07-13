@@ -5,7 +5,6 @@ namespace NaimSolong\DataExtractor\Builder;
 use Exception;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use RuntimeException;
 

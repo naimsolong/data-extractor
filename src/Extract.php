@@ -74,7 +74,7 @@ class Extract
         $models->each(function ($model) {
             // Get all loaded relations
             $relations = $model->getRelations();
-            
+
             foreach ($relations as $relationData) {
                 if ($relationData instanceof Collection && $relationData->isNotEmpty()) {
                     // For collections (hasMany, belongsToMany)
@@ -93,7 +93,7 @@ class Extract
 
     public function buildResult(): void
     {
-        collect($this->datas)->unique(function($data) {
+        collect($this->datas)->unique(function ($data) {
             return $data::class.$data['id'];
         })->each(function ($data) {
             $this->results[] = $this->builder

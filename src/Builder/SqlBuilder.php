@@ -2,7 +2,6 @@
 
 namespace NaimSolong\DataExtractor\Builder;
 
-use Carbon\Carbon;
 use DateTime;
 
 class SqlBuilder extends BaseBuilder
@@ -20,7 +19,7 @@ class SqlBuilder extends BaseBuilder
         foreach ($this->columns as $column) {
             if (! array_key_exists($column, $this->data)) {
                 $values[] = "'*****'";
-                
+
                 continue;
             }
 
@@ -45,11 +44,11 @@ class SqlBuilder extends BaseBuilder
         $values = [];
 
         $arrayValues = [];
-        foreach($rowValues as $row) {
-            $arrayValues[] = "(".implode(', ', $row).")";
+        foreach ($rowValues as $row) {
+            $arrayValues[] = '('.implode(', ', $row).')';
         }
 
-        $sql .= "INSERT INTO {$this->schemaName} (".implode(', ', $this->columns)."') VALUES ".implode(', ', $arrayValues).";";
+        $sql .= "INSERT INTO {$this->schemaName} (".implode(', ', $this->columns)."') VALUES ".implode(', ', $arrayValues).';';
 
         return $sql;
     }
