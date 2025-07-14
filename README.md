@@ -5,15 +5,42 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/naimsolong/laravel-data-extractor/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/naimsolong/laravel-data-extractor/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/naimsolong/laravel-data-extractor.svg?style=flat-square)](https://packagist.org/packages/naimsolong/laravel-data-extractor)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+A Laravel package for extracting data from Eloquent models and their relationships with flexible configuration options. This package provides a simple and intuitive way to extract structured data from your models, making it perfect for API responses, data exports, or any scenario where you need to transform model data into a specific format.
 
-## Support us
+## What It Does
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/data-extractor.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/data-extractor)
+The extractor leverages Laravel's relationship system to automatically include related data based on your configuration, while providing fine-grained control over which fields are included or excluded from the extraction process.
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+You can use the available options inside config file:
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+```php
+use NaimSolong\DataExtractor\Extract;
+
+// Option
+(new Extract)
+  ->option('User')
+  ->queryId(4)
+  ->toSql();
+
+// Source
+(new Extract)
+  ->source('session')
+  ->queryId(3)
+  ->toSql();
+```
+
+Or you can use model that you have queried:
+
+```php
+use NaimSolong\DataExtractor\Extract;
+use App\Models\User;
+
+// Extract directly
+(new Extract)
+  ->toSql(
+    User::get()
+  );
+```
 
 ## Installation
 
@@ -21,13 +48,6 @@ You can install the package via composer:
 
 ```bash
 composer require naimsolong/laravel-data-extractor
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="data-extractor-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -40,20 +60,36 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'is_enabled' => env('DATA_EXTRACTOR_ENABLED', false),
+
+    'options' => [
+        [
+            'name' => 'Default',
+            'description' => 'Extra all user data',
+            'format' => 'sql',
+            'source' => 'default',
+            'export' => 'default',
+        ],
+    ],
+
+    'source' => [
+        'default' => [
+            'connection' => 'mysql',
+            'model' => User::class,
+            'relationships' => [
+                'mainProfile',
+            ],
+        ],
+    ],
+
+    'export' => [
+        'default' => [
+            'file_name' => 'data-extractor',
+            'file_path' => 'data-extractor',
+            'disk' => 'local',
+        ],
+    ],
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="data-extractor-views"
-```
-
-## Usage
-
-```php
-$dataExtractor = new NaimSolong\DataExtractor();
-echo $dataExtractor->echoPhrase('Hello, naimsolong!');
 ```
 
 ## Testing
@@ -69,10 +105,6 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
