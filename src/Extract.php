@@ -65,7 +65,7 @@ class Extract
     {
         $this->builder->createBuilder($format);
 
-        $models = $this->validateCustomModel($models) ?? $this->query();
+        $models = $models ? $this->validateCustomModel($models) : $this->query();
 
         // Flatten all models and their relationships
         $this->flattenRelation($models);
