@@ -4,7 +4,6 @@ namespace NaimSolong\DataExtractor\Commands;
 
 use Illuminate\Console\Command;
 use NaimSolong\DataExtractor\Builder\ExtractBuilder;
-use NaimSolong\DataExtractor\Dto\Export;
 
 class DataExtractCommand extends Command
 {
