@@ -14,6 +14,8 @@ class CsvBuilder extends BaseBuilder
         // Add header row
         $csv .= implode(',', $this->columns)."\n";
 
+        $csvRow = [];
+        
         // Add data rows
         foreach ($this->columns as $column) {
             if (! array_key_exists($column, $this->data)) {

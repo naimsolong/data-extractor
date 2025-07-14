@@ -17,7 +17,7 @@ class ExtractBuilder
     public const DEFAULT_FORMAT = self::FORMAT_SQL;
 
     public const FORMATS = [
-        // self::FORMAT_CSV, // TODO: Enable this when ready
+        self::FORMAT_CSV,
         self::FORMAT_SQL,
     ];
 

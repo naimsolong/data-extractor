@@ -3,6 +3,7 @@
 namespace NaimSolong\DataExtractor\Commands;
 
 use Illuminate\Console\Command;
+use NaimSolong\DataExtractor\Builder\ExtractBuilder;
 use NaimSolong\DataExtractor\Dto\Export;
 
 class DataExtractCommand extends Command
@@ -105,7 +106,7 @@ class DataExtractCommand extends Command
                 return false;
             }
 
-            if (! in_array($option['export']['format'], Export::FORMATS)) {
+            if (! in_array($option['export']['format'], ExtractBuilder::FORMATS)) {
                 $this->error('Invalid export format in option: '.$option['name']);
 
                 return false;
