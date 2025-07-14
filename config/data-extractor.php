@@ -2,7 +2,7 @@
 
 // config for NaimSolong/DataExtractor
 
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 
 return [
     'is_enabled' => env('DATA_EXTRACTOR_ENABLED', false),
