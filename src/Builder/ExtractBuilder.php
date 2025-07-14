@@ -37,7 +37,6 @@ class ExtractBuilder
         $this->builder = match ($type) {
             self::FORMAT_CSV => new CsvBuilder,
             self::FORMAT_SQL => new SqlBuilder,
-            default => throw new InvalidArgumentException("Unsupported builder type: {$type}"),
         };
 
         return $this;
