@@ -48,7 +48,7 @@ class SqlBuilder extends BaseBuilder
             $arrayValues[] = '('.implode(', ', $row).')';
         }
 
-        $sql .= "INSERT INTO {$this->schemaName} (".implode(', ', $this->columns).") VALUES ".implode(', ', $arrayValues).';';
+        $sql .= "INSERT INTO {$this->schemaName} (".implode(', ', $this->columns).') VALUES '.implode(', ', $arrayValues).';';
 
         return $sql;
     }
