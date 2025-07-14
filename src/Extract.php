@@ -3,6 +3,7 @@
 namespace NaimSolong\DataExtractor;
 
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use NaimSolong\DataExtractor\Builder\ExtractBuilder;
 
@@ -50,7 +51,41 @@ class Extract
         return $this;
     }
 
-    public function query(): mixed
+    public function toCsv(?Collection $models = null): array
+    {
+        return $this->extract(ExtractBuilder::FORMAT_CSV, $models);
+    }
+
+    public function toSql(?Collection $models = null): array
+    {
+        return $this->extract(ExtractBuilder::FORMAT_SQL, $models);
+    }
+
+    public function extract(string $format, ?Collection $models = null): array
+    {
+        $this->builder->createBuilder($format);
+
+        $models = $this->validateCustomModel($models) ?? $this->query();
+
+        // Flatten all models and their relationships
+        $this->flattenRelation($models);
+
+        // Build result
+        $this->buildResult();
+
+        return $this->results;
+    }
+
+    public function validateCustomModel(Collection $models): Collection
+    {
+        if(!is_subclass_of($models->first(), Model::class)) {
+            throw new Exception('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
+        }
+
+        return $models;
+    }
+
+    protected function query(): mixed
     {
         if (is_null($this->option) && is_null($this->source)) {
             throw new Exception('Option or source are not set.');
@@ -69,9 +104,11 @@ class Extract
         return $query->get();
     }
 
-    public function flattenRelation(Collection $models): void
+    protected function flattenRelation(Collection $models): void
     {
         $models->each(function ($model) {
+            $this->datas[] = $model;
+
             // Get all loaded relations
             $relations = $model->getRelations();
 
@@ -91,7 +128,7 @@ class Extract
         });
     }
 
-    public function buildResult(): void
+    protected function buildResult(): void
     {
         collect($this->datas)->unique(function ($data) {
             return $data::class.$data['id'];
@@ -100,30 +137,5 @@ class Extract
                 ->setModel($data)
                 ->build();
         });
-    }
-
-    public function toCsv(): array
-    {
-        return $this->extract(ExtractBuilder::FORMAT_CSV);
-    }
-
-    public function toSql(): array
-    {
-        return $this->extract(ExtractBuilder::FORMAT_SQL);
-    }
-
-    public function extract(string $format): array
-    {
-        $this->builder->createBuilder($format);
-
-        $models = $this->query();
-
-        // Flatten all models and their relationships
-        $this->flattenRelation($models);
-
-        // Build result
-        $this->buildResult();
-
-        return $this->results;
     }
 }
