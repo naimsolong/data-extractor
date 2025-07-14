@@ -78,7 +78,7 @@ class Extract
 
     public function validateCustomModel(Collection $models): Collection
     {
-        if(!is_subclass_of($models->first(), Model::class)) {
+        if (! is_subclass_of($models->first(), Model::class)) {
             throw new Exception('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
         }
 
