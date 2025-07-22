@@ -59,6 +59,11 @@ class OptionsResolver
         throw new InvalidArgumentException("Invalid option value: {$value}");
     }
 
+    public function all(): array
+    {
+        return $this->options;
+    }
+
     public function get(): Option
     {
         return $this->option;
