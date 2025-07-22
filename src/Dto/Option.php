@@ -11,7 +11,6 @@ readonly class Option
         public string $description,
         public string $format,
         public Source $source,
-        public Export $export,
     ) {}
 
     public static function fromArray(array $data): self
@@ -21,7 +20,6 @@ readonly class Option
             description: $data['description'] ?? '',
             format: $data['format'] ?? ExtractBuilder::DEFAULT_FORMAT,
             source: $data['source'],
-            export: $data['export'],
         );
     }
 
@@ -32,7 +30,6 @@ readonly class Option
             'description' => $this->description,
             'format' => $this->format,
             'source' => $this->source->toArray(),
-            'export' => $this->export->toArray(),
         ];
     }
 }

@@ -68,7 +68,6 @@ return [
             'description' => 'Extra all user data',
             'format' => 'sql',
             'source' => 'default',
-            'export' => 'default',
         ],
     ],
 
@@ -79,14 +78,6 @@ return [
             'relationships' => [
                 'mainProfile',
             ],
-        ],
-    ],
-
-    'export' => [
-        'default' => [
-            'file_name' => 'data-extractor',
-            'file_path' => 'data-extractor',
-            'disk' => 'local',
         ],
     ],
 ];

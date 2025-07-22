@@ -3,7 +3,6 @@
 namespace NaimSolong\DataExtractor;
 
 use InvalidArgumentException;
-use NaimSolong\DataExtractor\Dto\Export;
 use NaimSolong\DataExtractor\Dto\Option;
 use NaimSolong\DataExtractor\Dto\Source;
 
@@ -22,18 +21,15 @@ class OptionsResolver
     {
         $configOptions = config('data-extractor.options', []);
         $configSource = config('data-extractor.source', []);
-        $configExport = config('data-extractor.export', []);
 
         foreach ($configOptions as $option) {
             $source = (array_key_exists($option['source'], $configSource)) ? $configSource[$option['source']] : [];
-            $export = (array_key_exists($option['export'], $configExport)) ? $configExport[$option['export']] : [];
 
             $this->options[] = Option::fromArray([
                 'name' => $option['name'],
                 'description' => $option['description'],
                 'format' => $option['format'],
                 'source' => Source::fromArray($source),
-                'export' => Export::fromArray($export),
             ]);
         }
     }
@@ -71,10 +67,5 @@ class OptionsResolver
     public function source(): Source
     {
         return $this->option->source;
-    }
-
-    public function export(): Export
-    {
-        return $this->option->export;
     }
 }

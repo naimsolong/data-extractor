@@ -137,7 +137,6 @@ class DataExtractCommand extends Command
                 return [
                     $option['name'],
                     $option['description'] ?? 'N/A',
-                    $option['export']['format'],
                 ];
             }, $this->options)
         );
