@@ -2,9 +2,6 @@
 
 namespace NaimSolong\DataExtractor\Dto;
 
-use Exception;
-use Illuminate\Database\Eloquent\Model;
-
 readonly class Source
 {
     public function __construct(
