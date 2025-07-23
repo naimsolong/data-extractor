@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-data-extractor` will be documented in this file.
 
+## v1.0.0 - 2025-07-23
+
+**Full Changelog**: https://github.com/naimsolong/laravel-data-extractor/compare/0.0.3...1.0.0
+
+Changes:
+
+- Refactor code
+- Fix tests
+- Fix command
+
 ## v0.0.3 - 2025-07-14
 
 **Full Changelog**: https://github.com/naimsolong/laravel-data-extractor/compare/0.0.2...0.0.3
