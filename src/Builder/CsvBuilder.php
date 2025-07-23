@@ -2,6 +2,8 @@
 
 namespace NaimSolong\DataExtractor\Builder;
 
+use DateTime;
+
 class CsvBuilder extends BaseBuilder
 {
     /**
@@ -25,8 +27,19 @@ class CsvBuilder extends BaseBuilder
             }
 
             $value = $this->data[$column] ?? '';
-            // Escape CSV values
-            $csvRow[] = '"'.str_replace('"', '""', $value).'"';
+            if (is_array($value)) {
+                $csvRow[] = "'".json_encode($value, JSON_UNESCAPED_UNICODE)."'";
+            } elseif (is_null($value)) {
+                $csvRow[] = 'NULL';
+            } elseif (is_numeric($value)) {
+                $csvRow[] = $value;
+            } elseif (is_bool($value)) {
+                $csvRow[] = ($value ? "'1'" : "'0'");
+            } elseif ($value instanceof DateTime) {
+                $csvRow[] = "'".$value->format('Y-m-d H:i:s')."'";
+            } else {
+                $csvRow[] = '"'.str_replace('"', '""', $value).'"';
+            }
         }
         $csv .= implode(',', $csvRow)."\n";
 

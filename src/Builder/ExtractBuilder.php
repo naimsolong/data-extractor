@@ -42,6 +42,11 @@ class ExtractBuilder
         return $this;
     }
 
+    public function getBuilder(): CsvBuilder|SqlBuilder
+    {
+        return $this->builder;
+    }
+
     public function asCsv(): self
     {
         return $this->createBuilder(self::FORMAT_CSV);
@@ -74,12 +79,12 @@ class ExtractBuilder
         return $this;
     }
 
-    protected function getTableName(): string
+    public function getTableName(): string
     {
         return $this->model->getTable();
     }
 
-    protected function getTableColumns(): array
+    public function getTableColumns(): array
     {
         return app(DatabaseManager::class)
             ->connection($this->model->getConnectionName())

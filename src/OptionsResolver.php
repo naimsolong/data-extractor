@@ -45,9 +45,9 @@ class OptionsResolver
         }
 
         if (is_string($value)) {
-            $filteredOptions = array_filter($this->options, function ($option) use ($value) {
+            $filteredOptions = array_values(array_filter($this->options, function ($option) use ($value) {
                 return $option->name === $value;
-            });
+            }));
 
             if (count($filteredOptions) > 0) {
                 $this->option = $filteredOptions[0];

@@ -29,6 +29,10 @@ class SourcesResolver
 
     public function get(): Source
     {
+        if (empty($this->source)) {
+            throw new InvalidArgumentException('Source has not been set. Please call set() method with a valid source key.');
+        }
+
         return $this->source;
     }
 }
