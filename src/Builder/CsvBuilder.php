@@ -29,8 +29,6 @@ class CsvBuilder extends BaseBuilder
             $value = $this->data[$column] ?? '';
             if (is_array($value)) {
                 $csvRow[] = "'".json_encode($value, JSON_UNESCAPED_UNICODE)."'";
-            } elseif (is_null($value)) {
-                $csvRow[] = 'NULL';
             } elseif (is_numeric($value)) {
                 $csvRow[] = $value;
             } elseif (is_bool($value)) {
