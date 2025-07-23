@@ -22,6 +22,7 @@ afterEach(function () {
 class CommandTestUser extends Model
 {
     protected $table = 'command_test_users';
+
     protected $guarded = [];
 }
 

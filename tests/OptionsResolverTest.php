@@ -40,7 +40,7 @@ beforeEach(function () {
 });
 
 it('can get all options', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
     $options = $resolver->all();
 
     expect($options)->toBeArray();
@@ -51,7 +51,7 @@ it('can get all options', function () {
 });
 
 it('can set option by numeric index', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
     $resolver->set(0);
 
     $option = $resolver->get();
@@ -62,7 +62,7 @@ it('can set option by numeric index', function () {
 });
 
 it('can set option by string name', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
     $resolver->set('SecondOption');
 
     $option = $resolver->get();
@@ -73,28 +73,28 @@ it('can set option by string name', function () {
 });
 
 it('throws exception for invalid option index', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
 
-    expect(fn() => $resolver->set(999))
+    expect(fn () => $resolver->set(999))
         ->toThrow('Invalid option value: 999');
 });
 
 it('throws exception for invalid option name', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
 
-    expect(fn() => $resolver->set('NonExistentOption'))
+    expect(fn () => $resolver->set('NonExistentOption'))
         ->toThrow('Invalid option value: NonExistentOption');
 });
 
 it('throws exception when getting option before setting', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
 
-    expect(fn() => $resolver->get())
+    expect(fn () => $resolver->get())
         ->toThrow(''); // Will throw uninitialized property error
 });
 
 it('can get source for current option', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
     $resolver->set('FirstOption');
 
     $source = $resolver->source();
@@ -106,16 +106,16 @@ it('can get source for current option', function () {
 });
 
 it('throws exception when getting source before setting option', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
 
-    expect(fn() => $resolver->source())
+    expect(fn () => $resolver->source())
         ->toThrow(''); // Will throw uninitialized property error
 });
 
 it('handles empty options configuration', function () {
     config(['data-extractor.options' => []]);
 
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
     $options = $resolver->all();
 
     expect($options)->toBeArray();
@@ -123,7 +123,7 @@ it('handles empty options configuration', function () {
 });
 
 it('can reset current option', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
     $resolver->set('FirstOption');
 
     expect($resolver->get())->toBeInstanceOf(\NaimSolong\DataExtractor\Dto\Option::class);
@@ -146,14 +146,14 @@ it('validates option format values', function () {
         ],
     ]);
 
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
     $resolver->set(0);
 
     expect($resolver->get()->format)->toBe('sql');
 });
 
 it('can handle case-sensitive option name matching', function () {
-    $resolver = new OptionsResolver();
+    $resolver = new OptionsResolver;
 
     // This should work with exact case
     $resolver->set('FirstOption');
@@ -178,5 +178,5 @@ it('handles missing source configuration gracefully', function () {
     ]);
 
     // This should handle missing source by creating empty Source array
-    expect(fn() => new OptionsResolver())->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
+    expect(fn () => new OptionsResolver)->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
 });

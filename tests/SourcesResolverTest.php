@@ -30,9 +30,9 @@ beforeEach(function () {
 });
 
 it('can get source by key', function () {
-    $resolver = new SourcesResolver();
+    $resolver = new SourcesResolver;
     $source = $resolver->set('default')->get();
-    
+
     expect($source)->toBeInstanceOf(\NaimSolong\DataExtractor\Dto\Source::class);
     expect($source->model)->toBe(SourcesResolverTestModel::class);
     expect($source->connection)->toBe('mysql');
@@ -40,26 +40,26 @@ it('can get source by key', function () {
 });
 
 it('can get different source configurations', function () {
-    $resolver = new SourcesResolver();
+    $resolver = new SourcesResolver;
     $source = $resolver->set('testing_source')->get();
-    
+
     expect($source->connection)->toBe('testing');
     expect($source->relationships)->toBe(['comments']);
 });
 
 it('can handle minimal source configuration with defaults', function () {
-    $resolver = new SourcesResolver();
+    $resolver = new SourcesResolver;
     $source = $resolver->set('minimal_source')->get();
-    
+
     expect($source->model)->toBe(SourcesResolverTestModel::class);
     expect($source->connection)->toBe('testing'); // Should be testing
     expect($source->relationships)->toBe([]); // Should default to empty array
 });
 
 it('throws exception for non-existent source', function () {
-    $resolver = new SourcesResolver();
-    
-    expect(fn() => $resolver->get('non_existent_source'))
+    $resolver = new SourcesResolver;
+
+    expect(fn () => $resolver->get('non_existent_source'))
         ->toThrow('Source has not been set. Please call set() method with a valid source key.');
 });
 
@@ -73,10 +73,10 @@ it('throws exception for malformed source configuration', function () {
             ],
         ],
     ]);
-    
-    $resolver = new SourcesResolver();
-    
-    expect(fn() => $resolver->set('malformed'))
+
+    $resolver = new SourcesResolver;
+
+    expect(fn () => $resolver->set('malformed'))
         ->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
 });
 
@@ -90,19 +90,19 @@ it('validates model class in source configuration', function () {
             ],
         ],
     ]);
-    
-    $resolver = new SourcesResolver();
-    
-    expect(fn() => $resolver->get('invalid_model'))
+
+    $resolver = new SourcesResolver;
+
+    expect(fn () => $resolver->get('invalid_model'))
         ->toThrow('Source has not been set. Please call set() method with a valid source key.');
 });
 
 it('handles empty source configuration', function () {
     config(['data-extractor.source' => []]);
-    
-    $resolver = new SourcesResolver();
-    
-    expect(fn() => $resolver->set('any_key'))
+
+    $resolver = new SourcesResolver;
+
+    expect(fn () => $resolver->set('any_key'))
         ->toThrow('Invalid source value: any_key');
 });
 
@@ -126,9 +126,9 @@ it('can handle various connection types', function () {
             ],
         ],
     ]);
-    
-    $resolver = new SourcesResolver();
-    
+
+    $resolver = new SourcesResolver;
+
     expect($resolver->set('mysql_source')->get()->connection)->toBe('mysql');
     expect($resolver->set('pgsql_source')->get()->connection)->toBe('pgsql');
     expect($resolver->set('sqlite_source')->get()->connection)->toBe('sqlite');
@@ -149,10 +149,10 @@ it('can handle complex relationship configurations', function () {
             ],
         ],
     ]);
-    
-    $resolver = new SourcesResolver();
+
+    $resolver = new SourcesResolver;
     $source = $resolver->set('complex_relationships')->get();
-    
+
     expect($source->relationships)->toBe([
         'profile',
         'posts.comments',
@@ -162,10 +162,10 @@ it('can handle complex relationship configurations', function () {
 });
 
 it('returns consistent Source DTO instances', function () {
-    $resolver = new SourcesResolver();
+    $resolver = new SourcesResolver;
     $source1 = $resolver->set('default')->get();
     $source2 = $resolver->set('default')->get();
-    
+
     // Should be equivalent but separate instances
     expect($source1)->toBeInstanceOf(\NaimSolong\DataExtractor\Dto\Source::class);
     expect($source2)->toBeInstanceOf(\NaimSolong\DataExtractor\Dto\Source::class);

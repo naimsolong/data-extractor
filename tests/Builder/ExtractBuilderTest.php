@@ -24,6 +24,7 @@ afterEach(function () {
 class ExtractTestUser extends Model
 {
     protected $table = 'extract_test_users';
+
     protected $guarded = [];
 }
 
@@ -40,7 +41,7 @@ it('can create CSV builder', function () {
 });
 
 it('throws exception for unsupported format', function () {
-    expect(fn() => (new ExtractBuilder)->createBuilder('invalid_format'))
+    expect(fn () => (new ExtractBuilder)->createBuilder('invalid_format'))
         ->toThrow('Invalid builder type: invalid_format');
 });
 
@@ -87,7 +88,7 @@ it('can build CSV data with models', function () {
 it('throws exception when building with invalid models', function () {
     $builder = (new ExtractBuilder)->createBuilder(ExtractBuilder::FORMAT_SQL);
 
-    expect(fn() => $builder->build(['not_a_model']))
+    expect(fn () => $builder->build(['not_a_model']))
         ->toThrow('Model not set. Use setModel() to set the model before building.');
 });
 

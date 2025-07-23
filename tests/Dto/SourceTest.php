@@ -69,7 +69,7 @@ it('validates that model class exists and extends Model', function () {
         'relationships' => [],
     ];
 
-    expect(fn() => Source::fromArray($data))
+    expect(fn () => Source::fromArray($data))
         ->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
 });
 
@@ -80,7 +80,7 @@ it('validates that model extends Eloquent Model', function () {
         'relationships' => [],
     ];
 
-    expect(fn() => Source::fromArray($data))
+    expect(fn () => Source::fromArray($data))
         ->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
 });
 
@@ -91,7 +91,7 @@ it('throws exception when model field is missing', function () {
         // Missing model
     ];
 
-    expect(fn() => Source::fromArray($data))
+    expect(fn () => Source::fromArray($data))
         ->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model'); // Will throw undefined array key error
 });
 

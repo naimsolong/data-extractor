@@ -3,7 +3,7 @@
 use NaimSolong\DataExtractor\Builder\SqlBuilder;
 
 it('can build SQL INSERT statement with basic data', function () {
-    $builder = new SqlBuilder();
+    $builder = new SqlBuilder;
     $builder->setSchemaName('test_table');
     $builder->setColumns(['id', 'name', 'email', 'created_at']);
     $builder->setData([
@@ -20,7 +20,7 @@ it('can build SQL INSERT statement with basic data', function () {
 });
 
 it('can handle NULL values', function () {
-    $builder = new SqlBuilder();
+    $builder = new SqlBuilder;
     $builder->setSchemaName('test_table');
     $builder->setColumns(['id', 'name', 'bio']);
     $builder->setData([
@@ -35,7 +35,7 @@ it('can handle NULL values', function () {
 });
 
 it('can handle boolean values', function () {
-    $builder = new SqlBuilder();
+    $builder = new SqlBuilder;
     $builder->setSchemaName('test_table');
     $builder->setColumns(['id', 'is_active', 'is_admin']);
     $builder->setData([
@@ -50,7 +50,7 @@ it('can handle boolean values', function () {
 });
 
 it('can handle array values as JSON', function () {
-    $builder = new SqlBuilder();
+    $builder = new SqlBuilder;
     $builder->setSchemaName('test_table');
     $builder->setColumns(['id', 'metadata']);
     $builder->setData([
@@ -64,7 +64,7 @@ it('can handle array values as JSON', function () {
 });
 
 it('can handle missing columns with placeholder', function () {
-    $builder = new SqlBuilder();
+    $builder = new SqlBuilder;
     $builder->setSchemaName('test_table');
     $builder->setColumns(['id', 'name', 'email']);
     $builder->setData([
@@ -79,7 +79,7 @@ it('can handle missing columns with placeholder', function () {
 });
 
 it('can handle DateTime objects', function () {
-    $builder = new SqlBuilder();
+    $builder = new SqlBuilder;
     $builder->setSchemaName('test_table');
     $builder->setColumns(['id', 'created_at']);
     $builder->setData([
@@ -93,7 +93,7 @@ it('can handle DateTime objects', function () {
 });
 
 it('can handle Carbon objects', function () {
-    $builder = new SqlBuilder();
+    $builder = new SqlBuilder;
     $builder->setSchemaName('test_table');
     $builder->setColumns(['id', 'updated_at']);
     $builder->setData([
@@ -107,7 +107,7 @@ it('can handle Carbon objects', function () {
 });
 
 it('can handle numeric values', function () {
-    $builder = new SqlBuilder();
+    $builder = new SqlBuilder;
     $builder->setSchemaName('test_table');
     $builder->setColumns(['id', 'price', 'count']);
     $builder->setData([

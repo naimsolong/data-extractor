@@ -48,9 +48,9 @@ class DataExtractCommand extends Command
         }
 
         $results = (new Extract)
-          ->option($this->options->get()->toArray()['name'])
-          ->queryId($id)
-          ->extract($format);
+            ->option($this->options->get()->toArray()['name'])
+            ->queryId($id)
+            ->extract($format);
 
         foreach ($results as $result) {
             $this->line($result);
