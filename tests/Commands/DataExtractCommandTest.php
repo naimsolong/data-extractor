@@ -117,40 +117,6 @@ it('can extract CSV format with command line arguments', function () {
         ->assertExitCode(0);
 });
 
-// TODO: Fix test
-// it('displays available options when no name provided', function () {
-//     config([
-//         'data-extractor.options' => [
-//             [
-//                 'name' => 'Option1',
-//                 'description' => 'First option',
-//                 'format' => 'sql',
-//                 'source' => 'test',
-//             ],
-//             [
-//                 'name' => 'Option2',
-//                 'description' => 'Second option',
-//                 'format' => 'csv',
-//                 'source' => 'test',
-//             ],
-//         ],
-//         'data-extractor.source' => [
-//             'test' => [
-//                 'model' => CommandTestUser::class,
-//                 'connection' => 'testing',
-//                 'relationships' => [],
-//             ],
-//         ],
-//     ]);
-
-//     // Mock the choice method to return the first option
-//     $this->artisan('data:extract', ['--queryId' => 1])
-//         ->expectsTable(['Name', 'Description'], [
-//             ['Option1', 'First option'],
-//             ['Option2', 'Second option'],
-//         ]);
-// });
-
 it('prompts for model ID when not provided', function () {
     config([
         'data-extractor.options' => [
@@ -206,34 +172,6 @@ it('fails with invalid model ID', function () {
     ])
         ->assertExitCode(1);
 });
-
-// TODO: Fix test
-// it('fails with invalid option name', function () {
-//     config([
-//         'data-extractor.options' => [
-//             [
-//                 'name' => 'ValidOption',
-//                 'description' => 'Valid option',
-//                 'format' => 'sql',
-//                 'source' => 'test',
-//             ],
-//         ],
-//         'data-extractor.source' => [
-//             'test' => [
-//                 'model' => CommandTestUser::class,
-//                 'connection' => 'testing',
-//                 'relationships' => [],
-//             ],
-//         ],
-//     ]);
-
-//     $this->artisan('data:extract', [
-//         '--name' => 'InvalidOption',
-//         '--queryId' => 1,
-//     ])
-//         ->expectsOutput('Invalid option value: InvalidOption')
-//         ->assertExitCode(1);
-// });
 
 it('can handle multiple IDs', function () {
     config([

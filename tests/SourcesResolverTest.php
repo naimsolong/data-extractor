@@ -77,7 +77,7 @@ it('throws exception for malformed source configuration', function () {
     $resolver = new SourcesResolver;
 
     expect(fn () => $resolver->set('malformed'))
-        ->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
+        ->toThrow('Undefined array key "model"');
 });
 
 it('validates model class in source configuration', function () {

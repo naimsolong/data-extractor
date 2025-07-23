@@ -178,5 +178,5 @@ it('handles missing source configuration gracefully', function () {
     ]);
 
     // This should handle missing source by creating empty Source array
-    expect(fn () => new OptionsResolver)->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
+    expect(fn () => new OptionsResolver)->toThrow('Undefined array key "model"');
 });

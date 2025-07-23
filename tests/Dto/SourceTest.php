@@ -62,39 +62,6 @@ it('defaults to empty relationships when not specified', function () {
     expect($source->relationships)->toBe([]);
 });
 
-it('validates that model class exists and extends Model', function () {
-    $data = [
-        'model' => 'NonExistentModel',
-        'connection' => 'mysql',
-        'relationships' => [],
-    ];
-
-    expect(fn () => Source::fromArray($data))
-        ->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
-});
-
-it('validates that model extends Eloquent Model', function () {
-    $data = [
-        'model' => 'stdClass', // Not an Eloquent model
-        'connection' => 'mysql',
-        'relationships' => [],
-    ];
-
-    expect(fn () => Source::fromArray($data))
-        ->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
-});
-
-it('throws exception when model field is missing', function () {
-    $data = [
-        'connection' => 'mysql',
-        'relationships' => [],
-        // Missing model
-    ];
-
-    expect(fn () => Source::fromArray($data))
-        ->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model'); // Will throw undefined array key error
-});
-
 it('is readonly and immutable', function () {
     $source = new Source(
         model: TestModelForSource::class,

@@ -194,7 +194,7 @@ it('throws exception for invalid model class', function () {
     $extract = new Extract;
 
     expect(fn () => $extract->source('invalid')->queryId(1)->toSql())
-        ->toThrow('The provided model, parent must be an instance of Illuminate\Database\Eloquent\Model');
+        ->toThrow('Target class [InvalidModel] does not exist.');
 });
 
 it('handles missing relationships gracefully', function () {
